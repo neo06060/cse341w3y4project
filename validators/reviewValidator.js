@@ -8,6 +8,7 @@ const createReviewSchema = Joi.object({
 });
 
 const updateReviewSchema = Joi.object({
+    book: Joi.string().optional(),
     reviewer: Joi.string().min(1).optional(),
     rating: Joi.number().integer().min(1).max(5).optional(),
     comment: Joi.string().optional().allow('')
