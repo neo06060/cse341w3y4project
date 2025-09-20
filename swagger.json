@@ -175,8 +175,7 @@
         "publishedDate": { "type": "string", "format": "date" },
         "pages": { "type": "integer" },
         "genre": { "type": "string" },
-        "price": { "type": "number" },
-        "createdAt": { "type": "string", "format": "date-time" }
+        "price": { "type": "number" }
       }
     },
     "Review": {
@@ -185,8 +184,7 @@
         "book": { "type": "string" },
         "reviewer": { "type": "string" },
         "rating": { "type": "integer" },
-        "comment": { "type": "string" },
-        "createdAt": { "type": "string", "format": "date-time" }
+        "comment": { "type": "string" }
       }
     }
   }
