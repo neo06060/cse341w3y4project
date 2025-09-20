@@ -1,7 +1,7 @@
 const Book = require('../models/Book');
 
 exports.getAllBooks = async (req, res) => {
-    const books = await Book.find().sort({ createdAt: -1});
+    const books = await Book.find();
     res.json({ success: true, count: books.length, data: books});
 };
 

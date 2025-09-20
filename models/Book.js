@@ -9,7 +9,6 @@ const bookSchema = new mongoose.Schema({
     pages:  { type: Number},
     genre:  { type: String},
     price:  { type: Number},
-    createdAt:  { type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Book', bookSchema);

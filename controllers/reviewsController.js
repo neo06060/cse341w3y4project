@@ -1,7 +1,7 @@
 const Review = require('../models/Reviews');
 
 exports.getAllReviews = async (req, res) => {
-    const reviews = await Review.find().sort({ createdAt: -1});
+    const reviews = await Review.find();
     res.json({ success: true, count: reviews.length, data: reviews});
 };
 
