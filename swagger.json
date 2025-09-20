@@ -5,9 +5,9 @@
     "description": "API for managing books and reviews",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "https://cse341w3y4project.onrender.com/",
+  "schemes": ["https"],
   "basePath": "/api",
-  "schemes": ["http", "https"],
   "tags": [
     { "name": "Books", "description": "All book related endpoints" },
     { "name": "Reviews", "description": "All review related endpoints" }
