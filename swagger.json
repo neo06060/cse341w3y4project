@@ -169,11 +169,10 @@
     "Review": {
       "type": "object",
       "properties": {
-        "bookId": { "type": "string" },
+        "book": { "type": "string" },
         "reviewer": { "type": "string" },
         "rating": { "type": "integer" },
-        "comment": { "type": "string" },
-        "date": { "type": "string", "format": "date" }
+        "comment": { "type": "string" }
       }
     }
   }
