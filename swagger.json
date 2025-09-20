@@ -7,7 +7,7 @@
   },
   "host": "localhost:3000",
   "basePath": "/api",
-  "schemes": ["http"],
+  "schemes": ["https, http"],
   "tags": [
     { "name": "Books", "description": "All book related endpoints" },
     { "name": "Reviews", "description": "All review related endpoints" }
