@@ -9,24 +9,10 @@
   "basePath": "/api",
   "schemes": ["http"],
   "tags": [
-    { "name": "Health", "description": "API health check" },
     { "name": "Books", "description": "All book related endpoints" },
     { "name": "Reviews", "description": "All review related endpoints" }
   ],
   "paths": {
-    "/": {
-      "get": {
-        "tags": ["Health"],
-        "summary": "API health check",
-        "description": "Returns a simple text to indicate the API is running",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "type": "string", "example": "Book API is running" }
-          }
-        }
-      }
-    },
     "/books": {
       "get": {
         "tags": ["Books"],
