@@ -1,0 +1,16 @@
+const Joi = require('joi');
+
+const createReviewSchema = Joi.object({
+    book: Joi.string().required(),
+    reviewer: Joi.string().min(1).required(),
+    rating: Joi.number().integer().min(1).max(5).required(),
+    comment: Joi.string().optional().allow('')
+});
+
+const updateReviewSchema = Joi.object({
+    reviewer: Joi.string().min(1).optional(),
+    rating: Joi.number().integer().min(1).max(5).optional(),
+    comment: Joi.string().optional().allow('')
+}).min(1);
+
+module.exports = { createReviewSchema, updateReviewSchema};
