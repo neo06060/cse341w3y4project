@@ -18,7 +18,20 @@
         "tags": ["Books"],
         "summary": "Get all books",
         "responses": {
-          "200": { "description": "OK" }
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "boolean" },
+                "count": { "type": "integer" },
+                "data": {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/Book" }
+                }
+              }
+            }
+          }
         }
       },
       "post": {
@@ -46,7 +59,7 @@
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "200": { "description": "OK" },
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Book" } },
           "404": { "description": "Not Found" }
         }
       },
@@ -58,7 +71,7 @@
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Book" } }
         ],
         "responses": {
-          "200": { "description": "OK" },
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Book" } },
           "400": { "description": "Bad Request" },
           "404": { "description": "Not Found" }
         }
@@ -80,7 +93,20 @@
         "tags": ["Reviews"],
         "summary": "Get all reviews",
         "responses": {
-          "200": { "description": "OK" }
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "boolean" },
+                "count": { "type": "integer" },
+                "data": {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/Review" }
+                }
+              }
+            }
+          }
         }
       },
       "post": {
@@ -108,7 +134,7 @@
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "200": { "description": "OK" },
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Review" } },
           "404": { "description": "Not Found" }
         }
       },
@@ -120,7 +146,7 @@
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Review" } }
         ],
         "responses": {
-          "200": { "description": "OK" },
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Review" } },
           "400": { "description": "Bad Request" },
           "404": { "description": "Not Found" }
         }
@@ -149,7 +175,8 @@
         "publishedDate": { "type": "string", "format": "date" },
         "pages": { "type": "integer" },
         "genre": { "type": "string" },
-        "price": { "type": "number" }
+        "price": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
       }
     },
     "Review": {
@@ -158,7 +185,8 @@
         "book": { "type": "string" },
         "reviewer": { "type": "string" },
         "rating": { "type": "integer" },
-        "comment": { "type": "string" }
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
       }
     }
   }
