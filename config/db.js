@@ -1,3 +1,6 @@
+// config/db.js
+const mongoose = require('mongoose'); // <-- make sure this line exists
+
 const connectDB = async (uri) => {
   if (!uri) {
     throw new Error('MongoDB URI is not defined in .env');
@@ -13,4 +16,5 @@ const connectDB = async (uri) => {
     process.exit(1); // exit if DB connection fails
   }
 };
+
 module.exports = connectDB;
