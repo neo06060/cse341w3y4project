@@ -12,7 +12,7 @@ exports.getBook = async (req, res) => {
 };
 
 exports.createBook = async (req, res) => {
-    const books = await Book.create(req.body);
+    const book = await Book.create(req.body);
     res.status(201).json({ success: true, data: book});
 };
 
