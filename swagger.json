@@ -5,34 +5,86 @@
     "description": "API for managing books and reviews",
     "version": "1.0.0"
   },
-  "host": "cse341w3y4project.onrender.com",
-  "schemes": ["https"],
+  "host": "localhost:3000",
+  "schemes": ["http"],
   "basePath": "/api",
   "tags": [
     { "name": "Books", "description": "All book related endpoints" },
-    { "name": "Reviews", "description": "All review related endpoints" }
+    { "name": "Reviews", "description": "All review related endpoints" },
+    { "name": "Auth", "description": "User authentication endpoints" }
   ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Paste your JWT token here. Swagger will add 'Bearer ' automatically."
+    }
+  },
   "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register a new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string" },
+                "password": { "type": "string" }
+              },
+              "required": ["username", "password"]
+            }
+          }
+        ],
+        "responses": {
+          "201": { "description": "User registered successfully" },
+          "400": { "description": "Missing fields or username already exists" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user and return JWT",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string" },
+                "password": { "type": "string" }
+              },
+              "required": ["username", "password"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          },
+          "400": { "description": "Invalid credentials" }
+        }
+      }
+    },
     "/books": {
       "get": {
         "tags": ["Books"],
         "summary": "Get all books",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "success": { "type": "boolean" },
-                "count": { "type": "integer" },
-                "data": {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Book" }
-                }
-              }
-            }
-          }
-        }
+        "responses": { "200": { "description": "OK" } }
       },
       "post": {
         "tags": ["Books"],
@@ -48,7 +100,8 @@
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Bad Request" }
-        }
+        },
+        "security": [{ "bearerAuth": [] }]
       }
     },
     "/books/{id}": {
@@ -59,7 +112,7 @@
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Book" } },
+          "200": { "description": "OK" },
           "404": { "description": "Not Found" }
         }
       },
@@ -68,13 +121,19 @@
         "summary": "Update a book by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
-          { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Book" } }
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Book" }
+          }
         ],
         "responses": {
-          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Book" } },
+          "200": { "description": "OK" },
           "400": { "description": "Bad Request" },
           "404": { "description": "Not Found" }
-        }
+        },
+        "security": [{ "bearerAuth": [] }]
       },
       "delete": {
         "tags": ["Books"],
@@ -85,29 +144,15 @@
         "responses": {
           "200": { "description": "OK" },
           "404": { "description": "Not Found" }
-        }
+        },
+        "security": [{ "bearerAuth": [] }]
       }
     },
     "/reviews": {
       "get": {
         "tags": ["Reviews"],
         "summary": "Get all reviews",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "success": { "type": "boolean" },
-                "count": { "type": "integer" },
-                "data": {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Review" }
-                }
-              }
-            }
-          }
-        }
+        "responses": { "200": { "description": "OK" } }
       },
       "post": {
         "tags": ["Reviews"],
@@ -123,7 +168,8 @@
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Bad Request" }
-        }
+        },
+        "security": [{ "bearerAuth": [] }]
       }
     },
     "/reviews/{id}": {
@@ -134,7 +180,7 @@
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Review" } },
+          "200": { "description": "OK" },
           "404": { "description": "Not Found" }
         }
       },
@@ -143,13 +189,19 @@
         "summary": "Update a review by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
-          { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Review" } }
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Review" }
+          }
         ],
         "responses": {
-          "200": { "description": "OK", "schema": { "$ref": "#/definitions/Review" } },
+          "200": { "description": "OK" },
           "400": { "description": "Bad Request" },
           "404": { "description": "Not Found" }
-        }
+        },
+        "security": [{ "bearerAuth": [] }]
       },
       "delete": {
         "tags": ["Reviews"],
@@ -160,7 +212,8 @@
         "responses": {
           "200": { "description": "OK" },
           "404": { "description": "Not Found" }
-        }
+        },
+        "security": [{ "bearerAuth": [] }]
       }
     }
   },

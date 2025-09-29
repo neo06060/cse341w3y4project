@@ -3,35 +3,15 @@ const router = express.Router();
 const reviewsController = require('../controllers/reviewsController');
 const validate = require('../middleware/validateRequest');
 const { createReviewSchema, updateReviewSchema } = require('../validators/reviewValidator');
+const authenticateJWT = require('../middleware/authenticateJWT');
 
-/**
- * @route GET /api/reviews
- * @summary Get all reviews
- */
+// Public
 router.get('/', reviewsController.getAllReviews);
-
-/**
- * @route GET /api/reviews/:id
- * @summary Get a review by ID
- */
 router.get('/:id', reviewsController.getReview);
 
-/**
- * @route POST /api/reviews
- * @summary Create a new review
- */
-router.post('/', validate(createReviewSchema), reviewsController.createReview);
-
-/**
- * @route PUT /api/reviews/:id
- * @summary Update a review by ID
- */
-router.put('/:id', validate(updateReviewSchema), reviewsController.updateReview);
-
-/**
- * @route DELETE /api/reviews/:id
- * @summary Delete a review by ID
- */
-router.delete('/:id', reviewsController.deleteReview);
+// Protected
+router.post('/', authenticateJWT, validate(createReviewSchema), reviewsController.createReview);
+router.put('/:id', authenticateJWT, validate(updateReviewSchema), reviewsController.updateReview);
+router.delete('/:id', authenticateJWT, reviewsController.deleteReview);
 
 module.exports = router;
